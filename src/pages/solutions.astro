@@ -1,0 +1,22 @@
+---
+
+import Layout from '../layouts/Layout.astro';
+import { getSolutions } from '../lib/webflow';
+
+const solutions = await getSolutions();
+
+---
+
+<Layout title="FlowPilot | Solutions">
+  <h1>Solutions</h1>
+
+  <h2>Solution List</h2>
+  <ul>
+    {solutions.map((item) => (
+      <li>
+        <h3>{item.fieldData.name}</h3>
+        <p>{item.fieldData.summary}</p>
+      </li>
+    ))}
+  </ul>
+</Layout>
