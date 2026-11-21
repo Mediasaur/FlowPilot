@@ -1,6 +1,7 @@
 type Solution = {
   fieldData: {
     name: string;
+    slug: string;
     summary?: string | null;
   };
 };

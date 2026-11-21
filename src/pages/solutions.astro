@@ -11,12 +11,16 @@ const solutions = await getSolutions();
   <h1>Solutions</h1>
 
   <h2>Solution List</h2>
+  {solutions.length > 0 ?
   <ul>
     {solutions.map((item) => (
       <li>
-        <h3>{item.fieldData.name}</h3>
-        <p>{item.fieldData.summary}</p>
+        <h3><a href={`/solutions/` + item.fieldData.slug}>{item.fieldData.name}</a></h3>
+        {item.fieldData.summary && <p>{item.fieldData.summary}</p> }
       </li>
     ))}
   </ul>
+  : 
+  <p>No solutions added yet.</p>
+  }
 </Layout>

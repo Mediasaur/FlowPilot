@@ -1,0 +1,30 @@
+---
+import { getSolutions } from '../../lib/webflow';
+
+
+
+export async function getStaticPaths() {
+
+  const solutions = await getSolutions();
+
+  return (
+    solutions.map((item) => (
+      {
+        params: { slug: item.fieldData.slug },
+        props: { 
+          name: item.fieldData.name,
+          summary: item.fieldData.summary
+        }
+      }
+    ))
+
+  );
+  
+}
+
+const props = Astro.props;
+
+---
+
+<h1>{props.name}</h1>
+<p>{props.summary}</p>
