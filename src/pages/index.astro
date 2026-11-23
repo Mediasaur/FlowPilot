@@ -1,11 +1,17 @@
 ---
 
-const pageTitle = 'FlowPilot’a hoş geldiniz';
+const pageTitle = 'Move work forward, automatically.';
 
 import Layout from '../layouts/Layout.astro';
 
 ---
 
 <Layout title="FlowPilot | Home">
-  <h1>{pageTitle}</h1>
+  <div class="text-sm font-semibold uppercase tracking-wider text-blue-700">Workflow Automation For Growing Teams</div>
+  <h1 class="mt-4 max-w-3xl text-5xl font-bold tracking-tight text-slate-900">{pageTitle}</h1>
+  <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">FlowPilot helps teams automate repetitive workflows, so they can focus on meaningful work.</p>
+  <div class="mt-8 flex flex-wrap gap-4">
+    <a class="inline-flex items-center justify-center rounded-md bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800" href="/solutions">Explore solutions</a>
+    <a class="inline-flex items-center justify-center rounded-md border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50" href="/features">See how it works</a>
+  </div>
 </Layout>
