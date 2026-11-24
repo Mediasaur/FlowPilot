@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getMarketingPages } from '../../lib/webflow';
+
+export async function getStaticPaths() {
+  const marketingPages = await getMarketingPages();
+
+  return marketingPages.map((item) => ({
+    params: { slug: item.fieldData.slug },
+    props: {
+      name: item.fieldData.name,
+      eyebrow: item.fieldData['hero-eyebrow'],
+      headline: item.fieldData['hero-headline'],
+      body: item.fieldData['hero-body'],
+      primaryCtaLabel: item.fieldData['primary-cta-label'],
+      primaryCtaUrl: item.fieldData['primary-cta-url'],
+      secondaryCtaLabel: item.fieldData['secondary-cta-label'],
+      secondaryCtaUrl: item.fieldData['secondary-cta-url'],
+    },
+  }));
+}
+
+const props = Astro.props;
+---
+
+<Layout title={props.name + ' | FlowPilot'}>
+  <h1 class="text-3xl font-bold mb-3">{props.name}</h1>
+  <div class="small-text">{props.eyebrow}</div>
+  <h2 class="text-2xl">{props.headline}</h2>
+</Layout>
