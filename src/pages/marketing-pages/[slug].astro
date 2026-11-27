@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getMarketingPages } from '../../lib/webflow';
+
+export async function getStaticPaths() {
+  const marketingPages = await getMarketingPages();
+
+  const noneHomeMarketingPages = marketingPages.filter((item) => (item.fieldData.slug !== 'home'))
+
+  return noneHomeMarketingPages.map((item) => ({
+    params: { slug: item.fieldData.slug },
+    props: {
+      name: item.fieldData.name,
+      eyebrow: item.fieldData['hero-eyebrow'],
+      headline: item.fieldData['hero-headline'],
+      body: item.fieldData['hero-body'],
+      primaryCtaLabel: item.fieldData['primary-cta-label'],
+      primaryCtaUrl: item.fieldData['primary-cta-url'],
+      secondaryCtaLabel: item.fieldData['secondary-cta-label'],
+      secondaryCtaUrl: item.fieldData['secondary-cta-url'],
+    },
+  }));
+}
+
+const props = Astro.props;
+
+if (!props.headline) {
+  throw new Error(`Marketing page "${props.name}" is missing a headline.`);
+}
+
+
+
+---
+
+<Layout title={props.name + ' | FlowPilot'}>
+  {props.eyebrow && (
+    <div class="text-sm font-semibold uppercase tracking-wider text-blue-700">{props.eyebrow}</div>
+  )}
+  <h1 class="mt-4 max-w-3xl text-5xl font-bold tracking-tight text-slate-900">{props.headline}</h1>
+  { props.body && (
+    <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">{ props.body }</p>
+  )}
+  
+    {
+      ((props.primaryCtaUrl && props.primaryCtaLabel) || (props.secondaryCtaUrl && props.secondaryCtaLabel)) && (
+        <div class="mt-8 flex flex-wrap gap-4">
+          { 
+            props.primaryCtaUrl && props.primaryCtaLabel  && (
+              <a class="inline-flex items-center justify-center rounded-md bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800" href={ props.primaryCtaUrl }>{ props.primaryCtaLabel }</a>
+            )
+          }
+
+          { props.secondaryCtaUrl && props.secondaryCtaLabel && (
+              <a class="inline-flex items-center justify-center rounded-md border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50" href={ props.secondaryCtaUrl }>{ props.secondaryCtaLabel }</a>
+            )
+          }
+        </div>
+      )
+    }  
+</Layout>
